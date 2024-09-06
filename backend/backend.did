@@ -1,0 +1,26 @@
+type Time = int;
+type Result = 
+ variant {
+   err: text;
+   ok: nat;
+ };
+type ChangelogEntry = 
+ record {
+   date: Time;
+   description: text;
+   id: nat;
+   sections: vec record {
+                   text;
+                   vec text;
+                 };
+   tags: vec text;
+   title: text;
+ };
+service : {
+  addChangelogEntry: (text, text, vec text, vec record {
+                                                  text;
+                                                  vec text;
+                                                }) -> (Result);
+  getChangelogEntries: () -> (vec ChangelogEntry) query;
+  getChangelogEntry: (nat) -> (opt ChangelogEntry) query;
+}
